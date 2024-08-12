@@ -1,4 +1,26 @@
-nav {
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+}
+
+form {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-top: 10px;
+}
+
+input,
+select,
+button {
+    margin-top: 5px;
+}
+
+
+
+/* nav {
     margin: 0 auto 10px auto;
     background-color: blue;
     padding: 0 30px;
@@ -45,4 +67,4 @@ main {
 
 .delete-task {
     text-decoration: none;
-}
+} */

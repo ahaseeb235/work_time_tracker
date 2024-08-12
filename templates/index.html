@@ -1,7 +1,54 @@
-{% extends 'base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Hours</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+
+<body>
+    <h1>Employee Hours</h1>
+    <form action="/submit" method="post">
+        <label for="name">Employee Name:</label>
+        <input type="text" id="name" name="name" required><br>
+
+        <label for="time_in">Time In:</label>
+        <input type="time" id="time_in" name="time_in" required><br>
+
+        <label for="time_out">Time Out:</label>
+        <input type="time" id="time_out" name="time_out" required><br>
+
+        <label for="month">Select Month:</label>
+        <input type="month" id="month" name="month" required><br>
+
+        <label for="date">Select Date:</label>
+        <input type="date" id="date" name="date" required><br>
+
+        <label for="workday_type">Workday Type:</label>
+        <select id="workday_type" name="workday_type">
+            <option value="Worked">Worked</option>
+            <option value="Training">Training</option>
+            <option value="Bank Holiday">Bank Holiday</option>
+            <option value="Annual Leave">Annual Leave</option>
+            <option value="Sick Leave">Sick Leave</option>
+            <option value="Over Time">Over Time</option>
+        </select><br>
+
+        <button type="submit">Submit</button>
+    </form>
+</body>
+
+</html>
+
+
+
+
+<!-- {% extends 'base.html' %}
 
 {% block main %}
     <p>This example site lets you and your friends or family members manage a shared set of tasks.</p>
     <p>Just note that as it doesn't use a database, the tasks will get reset when the server is restarted.</p>
     <p>Are you ready to get tasking? <a href="{{ url_for('task_list') }}">View the task lisk</a>.</p>
-{% endblock %}
+{% endblock %} -->
