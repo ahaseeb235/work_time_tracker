@@ -5,44 +5,42 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dashboard</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
+  <nav>
+    <a href="{{ url_for('index') }}">Main</a>
+    <a href="{{ url_for('dashboard') }}">Dashboard</a>
+  </nav>
+
   <h1>Dashboard</h1>
-  <p>Total Hours Worked This Month: <!-- Display total hours --></p>
-  <p>Total Hours Bank Holiday: <!-- Display total hours --></p>
-  <p>Total Hours Sick Leave: <!-- Display total hours --></p>
-  <p>Total Hours Annual Leave: <!-- Display total hours --></p>
-  <p>Total Hours Training: <!-- Display total hours --></p>
-  <p>Total Over Time: <!-- Display total hours --></p>
+  <p>Total Hours Worked: {{ total_hours }}</p>
+  <p>Total Hours Bank Holiday: {{ total_bank_holiday }}</p>
+  <p>Total Hours Sick Leave: {{ total_sick_leave }}</p>
+  <p>Total Hours Annual Leave: {{ total_annual_leave }}</p>
+  <p>Total Hours Training: {{ total_training }}</p>
+  <p>Total Hours Over time: {{ total_overtime }}</p>
 
-  <!-- Graph for days and hours worked over the month -->
-  <canvas id="hoursGraph"></canvas>
+  <canvas id="hoursChart" width="400" height="200"></canvas>
 
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
-    var ctx = document.getElementById('hoursGraph').getContext('2d');
-    var chart = new Chart(ctx, {
-      type: 'bar',
-      data: {
-        labels: ['Day 1', 'Day 2', 'Day 3', '...'],
-        datasets: [{
-          label: 'Hours Worked',
-          data: [8, 7.5, 8, ...],
-          backgroundColor: 'rgba(75, 192, 192, 0.2)',
-          borderColor: 'rgba(75, 192, 192, 1)',
-          borderWidth: 1
-        }]
-      },
-      options: {
-        scales: {
-          y: {
-            beginAtZero: true
-          }
-        }
-      }
-    });
+    const ctx = document.getElementById('hoursChart').getContext('2d');
+    const data = {
+      labels: {{ data| map(attribute = 'Date') | list | tojson }},
+    datasets: [{
+      label: 'Hours Worked',
+      data: {{ data| map(attribute = 'Hours Worked') | list | tojson }},
+      borderColor: 'rgb(75, 192, 192)',
+      tension: 0.1
+            }]
+        };
+    const config = {
+      type: 'line',
+      data: data,
+    };
+    const hoursChart = new Chart(ctx, config);
   </script>
 </body>
 
