@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Example Task List App</title>
+    <link href="static/style.css" rel="stylesheet">
+</head>
+<body>
+  <nav>
+    <h1>Example Task List App</h1>
+    <ul>
+      <li class="navlink"><a href="{{ url_for('index') }}">Home</a></li>
+      <li class="navlink"><a href="{{ url_for('task_list') }}">View Tasks</a></li>
+    </ul>
+  </nav>
+  <main>
+    {% block main %}
+    {% endblock %}
+  </main>
+</body>
+</html>
