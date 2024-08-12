@@ -26,8 +26,8 @@
   <canvas id="hoursChart" width="400" height="200"></canvas>
 
   <script>
-    const ctx = document.getElementById('hoursChart').getContext('2d');
-    const data = {
+    let ctx = document.getElementById('hoursChart').getContext('2d');
+    let data = {
       labels: {{ data| map(attribute = 'Date') | list | tojson }},
     datasets: [{
       label: 'Hours Worked',
@@ -36,11 +36,11 @@
       tension: 0.1
             }]
         };
-    const config = {
+    let config = {
       type: 'line',
       data: data,
     };
-    const hoursChart = new Chart(ctx, config);
+    let hoursChart = new Chart(ctx, config);
   </script>
 </body>
 
