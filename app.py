@@ -36,7 +36,11 @@ def dashboard():
 @app.route('/submit', methods=['POST'])
 def submit():
     # Capture form data
-    employee_name = request.form['employee_name']
+    # Correctly get the value from the form
+    employee_name = request.form['employee_name']  # Use get() to safely retrieve the value
+    if not employee_name:
+        return "Employee name is missing", 400
+    
     time_in = request.form['time_in']
     time_out = request.form['time_out']
     date = request.form['date']
