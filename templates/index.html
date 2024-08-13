@@ -4,46 +4,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Working Hours Tracker</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <title>Employee Hours Dashboard</title>
 </head>
 
 <body>
     <nav>
-        <a href="{{ url_for('index') }}">Main</a>
-        <a href="{{ url_for('dashboard') }}">Dashboard</a>
+        <a href="{{ url_for('index') }}">Home</a>
+        <a href="{{ url_for('add_hours') }}">Add Hours</a>
     </nav>
 
-    <h1>Working Hours Tracker</h1>
-    <form action="{{ url_for('submit') }}" method="POST">
+    <h1>Employee Hours Dashboard</h1>
+
+    <form method="GET" action="{{ url_for('index') }}">
         <label for="employee_name">Employee Name:</label>
-        <input type="text" id="employee_name" name="employee_name" required><br>
+        <input type="text" id="employee_name" name="employee_name">
 
-        <label for="date">Date:</label>
-        <input type="date" id="date" name="date" required><br>
-
-        <label for="time_in">Time In:</label>
-        <input type="time" id="time_in" name="time_in" required><br>
-
-        <label for="time_out">Time Out:</label>
-        <input type="time" id="time_out" name="time_out" required><br>
-
-        <label for="workday_type">Workday Type:</label>
-        <select id="workday_type" name="workday_type">
-            <option value="Worked">Worked</option>
-            <option value="Training">Training</option>
-            <option value="Bank Holiday">Bank Holiday</option>
-            <option value="Annual Leave">Annual Leave</option>
-            <option value="Sick Leave">Sick Leave</option>
-            <option value="Over time">Over time</option>
-        </select><br>
-
-        <input type="submit" value="Submit">
+        <label for="month">Select Month:</label>
+        <select id="month" name="month">
+            <option value="January">January</option>
+            <option value="February">February</option>
+            <!-- Add other months -->
+        </select>
+        <button type="submit">View</button>
     </form>
 
-    <form action="{{ url_for('export') }}" method="GET">
-        <input type="submit" value="Export to CSV">
-    </form>
+    {% if data %}
+    <div class="dashboard">
+        <h2>Dashboard for {{ request.args.get('employee_name', 'Employee') }} - {{ request.args.get('month', 'Month') }}
+        </h2>
+        <ul>
+            <li>Total Hours Worked: {{ data['Worked'] }}</li>
+            <li>Total Bank Holiday Hours: {{ data['Bank Holiday'] }}</li>
+            <li>Total Sick Leave Hours: {{ data['Sick Leave'] }}</li>
+            <li>Total Annual Leave Hours: {{ data['Annual Leave'] }}</li>
+            <li>Total Training Hours: {{ data['Training'] }}</li>
+            <li>Total Over Time Hours: {{ data['Over time'] }}</li>
+        </ul>
+    </div>
+    {% endif %}
 </body>
 
 </html>
