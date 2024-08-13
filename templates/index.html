@@ -4,27 +4,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Employee Hours</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <title>Working Hours Tracker</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 </head>
 
 <body>
-    <h1>Employee Hours</h1>
-    <form action="/submit" method="post">
-        <label for="name">Employee Name:</label>
-        <input type="text" id="name" name="name" required><br>
+    <nav>
+        <a href="{{ url_for('index') }}">Main</a>
+        <a href="{{ url_for('dashboard') }}">Dashboard</a>
+    </nav>
+
+    <h1>Working Hours Tracker</h1>
+    <form action="{{ url_for('submit') }}" method="POST">
+        <label for="employee_name">Employee Name:</label>
+        <input type="text" id="employee_name" name="employee_name" required><br>
+
+        <label for="date">Date:</label>
+        <input type="date" id="date" name="date" required><br>
 
         <label for="time_in">Time In:</label>
         <input type="time" id="time_in" name="time_in" required><br>
 
         <label for="time_out">Time Out:</label>
         <input type="time" id="time_out" name="time_out" required><br>
-
-        <label for="month">Select Month:</label>
-        <input type="month" id="month" name="month" required><br>
-
-        <label for="date">Select Date:</label>
-        <input type="date" id="date" name="date" required><br>
 
         <label for="workday_type">Workday Type:</label>
         <select id="workday_type" name="workday_type">
@@ -33,10 +35,14 @@
             <option value="Bank Holiday">Bank Holiday</option>
             <option value="Annual Leave">Annual Leave</option>
             <option value="Sick Leave">Sick Leave</option>
-            <option value="Over Time">Over Time</option>
+            <option value="Over time">Over time</option>
         </select><br>
 
-        <button type="submit">Submit1</button>
+        <input type="submit" value="Submit">
+    </form>
+
+    <form action="{{ url_for('export') }}" method="GET">
+        <input type="submit" value="Export to CSV">
     </form>
 </body>
 
